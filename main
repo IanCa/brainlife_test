@@ -2,7 +2,12 @@
 
 #PBS -l nodes=1:ppn=1
 #PBS -l walltime=00:05:00
+#PBS -N test_hed
 
 #parse config.json for input parameters (here, we are pulling "t1")
 t1=$(jq -r .t1 config.json)
-./main.py $t1
+#./main.py $t1
+# Incase needed later
+#time singularity exec -e -B `pwd`/license.txt:/usr/local/freesurfer/license.txt docker://brainlife/freesurfer:7.3.2 ./freesurfer.sh
+
+singularity exec -e docker://brainlife/ga-python:latest python main.py $t1
